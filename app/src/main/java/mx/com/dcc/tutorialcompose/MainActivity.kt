@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -26,6 +28,15 @@ class MainActivity : ComponentActivity() {
             TutorialComposeTheme {
                 MessageCard(Message(author = "Android", body = "Jetpack Compose"))
             }
+        }
+    }
+}
+
+@Composable
+fun Conversation(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(msg = message)
         }
     }
 }
@@ -75,11 +86,6 @@ fun MessageCard(msg: Message) {
 @Composable
 fun DefaultPreview() {
     TutorialComposeTheme {
-        MessageCard(
-            msg = Message(
-                author = "Colleague",
-                body = "Hey, take a look at Jetpack Compose, it's great!"
-            )
-        )
+        Conversation(messages = SampleData.conversationSample)
     }
 }
