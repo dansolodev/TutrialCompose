@@ -3,6 +3,7 @@ package mx.com.dcc.tutorialcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -22,22 +23,32 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MessageCard("Android")
+                    MessageCard(Message(author = "Android", body = "Jetpack Compose"))
                 }
             }
         }
     }
 }
 
+data class Message(val author: String, val body: String)
+
 @Composable
-fun MessageCard(name: String) {
-    Text(text = "Hello $name!")
+fun MessageCard(msg: Message) {
+    Column {
+        Text(text = msg.author)
+        Text(text = msg.body)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     TutorialComposeTheme {
-        MessageCard("Android")
+        MessageCard(
+            msg = Message(
+                author = "Colleague",
+                body = "Hey, take a look at Jetpack Compose, it's great!"
+            )
+        )
     }
 }
